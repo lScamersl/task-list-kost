@@ -38,6 +38,30 @@ void listTasks() {
     }
 }
 
+void deleteTask() {
+    listTasks();
+    if (tasks.empty()) return;
+
+    std::cout << "Введите номер задачи для удаления: ";
+    int num;
+    std::cin >> num;
+
+    if (std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Введите целое число.\n";
+        return;
+    }
+
+    if (num >= 1 && num <= static_cast<int>(tasks.size())) {
+        std::string removed = tasks[num - 1];
+        tasks.erase(tasks.begin() + num - 1);
+        std::cout << "Задача «" << removed << "» удалена.\n";
+    } else {
+        std::cout << "Некорректный номер задачи.\n";
+    }
+}
+
 int main() {
     while (true) {
         showMenu();
@@ -50,7 +74,7 @@ int main() {
         } else if (choice == 2) {
             listTasks();
         } else if (choice == 3) {
-            std::cout << "Удаление задач будет реализовано позже.\n";
+            deleteTask();
         } else if (choice == 4) {
             std::cout << "Выход из программы.\n";
             break;
@@ -60,4 +84,3 @@ int main() {
     }
     return 0;
 }
-13:23
